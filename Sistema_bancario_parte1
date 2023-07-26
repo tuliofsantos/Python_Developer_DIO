@@ -1,1 +1,68 @@
+mensagem  = """"
+    ******************* Bem vindo ao Banco XS *******************
+    Escolha uma das seguintes operações abaixo para prosseguirmos \n
+    [1]: Depósito
+    [2]: Saque 
+    [3]: Extrato
+    [0]: SAIR \n
+    *************************************************************
+"""
 
+saldo = 0
+LIMITE_SAQUE = 500
+QTDE_LIMITE_SAQUE = 3
+saque = 0
+deposito = 0
+
+while True:
+    operacao = input(mensagem)
+
+    if operacao == '1':
+        valor = int(input('Qual valor deseja depositar? '))
+        saldo += valor
+        deposito += 1
+        print('Depósito realizado com sucesso!')
+        continua = input('Deseja realizar outra operação s/n: ')
+        if continua == 'n':
+            break
+    elif operacao == '2':
+        retirar = int(input('Qual valor deseja sacar? '))
+        if retirar > 0 and retirar <= 500:
+            if saldo >= retirar:
+                saque += 1
+                if saque < 3:
+                    saldo -= retirar
+                    print('Saque realizado com sucesso! \n'
+                          f'Seu novo saldo é R$ {saldo:.2f}')
+                else:
+                    print('Operação cancelada! Não é possível realizar mais do que 3 saques diários! Por favor, repita a operação \n'
+                          f'Seu saldo é R$ {saldo:.2f}')
+            else:
+                print('Operação Cancelada! Seu saldo é inferior ao valor que quer sacar. Por favor, repita a operação \n'
+                      f'Seu saldo é R$ {saldo:.2f}')
+        elif retirar <= 0:
+            print('Não é possível realizar saque de valores nulo ou negativos. Repita a operação inserindo um novo valor!')       
+        else:
+            print('Desculpe seu limite diário de saque é R$ 500.00, Repita a operação inserindo um novo valor!')    
+        continua = input('Deseja realizar outra operação s/n: ')
+        if continua == 'n':
+            break
+    elif operacao == '3':
+        if saque > 0 or deposito > 0:
+            print(f'Você realizou {deposito} deposito(s) \n'
+                  f'Você realizou {saque} saque(s) \n'
+                  f'Seu novo saldo é: R$ {saldo:.2f}')
+        else:
+            print('Você não realizou nenhuma operação \n'
+                  f'Seu saldo atual é: R$ {saldo:.2f}')
+        continua = input('Deseja realizar outra operação s/n: ')
+        if continua == 'n':
+            break
+    elif operacao == '0':
+        print('Obrigado por utilizar nossos serviços. Tenha um ótimo dia!')
+        break
+    else: 
+        print('Operação Cancelada, favor insira um valor válido')
+        continua = input('Deseja realizar outra operação s/n: ')
+        if continua == 'n':
+            break
